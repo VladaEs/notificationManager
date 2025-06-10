@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->char('name', 255);
             $table->string('api_key')->unique();
+            $table->unsignedBigInteger('edited_by');
             $table->timestamps();
         });
     }

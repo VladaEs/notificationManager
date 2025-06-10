@@ -23,3 +23,9 @@ body{
     font-weight: var(--font-weight-title);
     text-transform: uppercase;
 }
+
+.required:after{
+    content:"*";
+    color:#a10000; 
+
+}

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('company_events', function (Blueprint $table) {
-            // Убедись, что тип поля совместим: unsignedBigInteger
+            
             $table->foreign('company_id')
                   ->references('id')->on('companies')
                   ->onDelete('cascade');
@@ -28,6 +28,14 @@ return new class extends Migration
             ->on('companies')
             ->onDelete('cascade');
         });
+
+        Schema::table('companies', function(Blueprint $table){
+            $table->foreign("edited_by")
+            ->references("id")
+            ->on('users')
+            ->onDelete("cascade");
+        });
+
     }
 
     /**
@@ -41,6 +49,9 @@ return new class extends Migration
         Schema::table('events', function (Blueprint $table) {
             $table->dropForeign(['event_type_id']);
             $table->dropForeign(['company_id']);
+        });
+        Schema::table('companies', function(Blueprint $table){
+            $table->dropForeign(["edited_by"]);
         });
     }
 };
