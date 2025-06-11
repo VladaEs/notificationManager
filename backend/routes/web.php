@@ -1,27 +1,37 @@
-    <?php
-
+<?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\RedisController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EventController;
+
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('mainPage');
 
 Route::get('/redis', [RedisController::class, 'index']);
 Route::get('/roles', [RolesController::class, "index"]);
 
 Route::middleware('auth')->group(function () {
-    Route::post('api/newevent', [EventController::class, 'createEvent']);
+    
     Route::get('/createCompany', [CompanyController::class, 'createCompany'])->name("newCompany");
     Route::post('/createCompany', [CompanyController::class, 'StoreNewCompany'])->name("CreateNewCompany");
-    Route::post('/api/newEvent', [Eventcontroller::class, 'storeEvent'])->name('newEvent');
-    Route::get('/api/displayEvent', [Eventcontroller::class, 'storeEvent'])->name('showEvent');
+    //Route::post('/api/newevent', [Eventcontroller::class, 'storeEvent'])->name('storeEvent');
+    //Route::get('/api/displayEvent', [Eventcontroller::class, 'showEvent'])->name('showEvent');
 });
+
+
+
+
+Route::middleware('isAdmin')->group(function(){
+    Route::get('/testAdmin', function(){
+        return response("test");
+    });
+});
+
 
 
 
@@ -36,3 +46,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+

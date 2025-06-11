@@ -6,22 +6,16 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class isAdmin
+class checkApiKey
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response{
-
-        
-        if($user = auth()->user()){
-
-            if($user->hasRole('admin')){
-                return $next($request);
-            }
-        }
-        return redirect()->route('mainPage');
+    public function handle(Request $request, Closure $next): Response
+    {
+        //$apiKey = $request[]
+        return $next($request);
     }
 }

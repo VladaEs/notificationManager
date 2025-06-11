@@ -8,6 +8,7 @@ class DashboardController extends Controller
 {
     public function index(){
         $messagesAmount = 100;
+        
         return view("dashboard.index", ["messagesAmount"=> $messagesAmount]);
     }
 }
