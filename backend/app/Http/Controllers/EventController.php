@@ -5,13 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Validation\Rule;
+
 class EventController extends Controller
 {
  public function storeEvent(Request $request){
-    // Можно сохранить в сессию для проверки
+
+    $validator = $request->validate([
+       "api_key" => ['required', "string" ],
+       "event_type" =>['required', 'string', "max:255"],
+       "received_at" =>['Sometimes', Rule::date()->format('Y-m-d'),],
+       "payload"=>['required']
+    ]);
+
+    //check if event exists in DB for this company
+    dd($validator);
     
-    session()->put('request', 111);
-    
+
+
 
     // Возвращаем JSON
     return response()->json([

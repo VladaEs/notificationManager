@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('isAdmin')->group(function(){
+Route::middleware(['isAdmin'])->group(function(){
     Route::get('/testAdmin', function(){
         return response("test");
     });

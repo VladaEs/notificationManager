@@ -3,7 +3,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 
-Route::post('/newevent', [Eventcontroller::class, 'storeEvent'])->name('storeEvent');
+
+Route::middleware(['checkAPIKey', 'json'])->group(function(){
+    Route::post('/newevent', [Eventcontroller::class, 'storeEvent'])->name('storeEvent');
+});
+
 
 
 
