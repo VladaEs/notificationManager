@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $table= "events";
-    protected $fillable =['event_type_id', 'payload_link', "company_id", "read_at"];
+    protected $fillable =['event_type_id', 'disk','file_name', "company_id", "read_at"];
+
+
+    public function scopegetNewMessagesAmount($query, $company_id = 1){
+        return $query->where('company_id', $company_id)->whereNull("read_at");
+    }
 }

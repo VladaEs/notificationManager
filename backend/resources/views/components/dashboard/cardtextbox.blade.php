@@ -1,0 +1,1 @@
+<div class="textBox">{{ $slot }}</div>
