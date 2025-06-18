@@ -13,4 +13,7 @@ class Event extends Model
     public function scopegetNewMessagesAmount($query, $company_id = 1){
         return $query->where('company_id', $company_id)->whereNull("read_at");
     }
+    public function scopeJoinTables($query){
+        return $query->join('companies', 'companies.id', '=', 'events.company_id')->join('company_events', 'company_events.id', '=', 'events.event_type_id');
+    }
 }

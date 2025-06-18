@@ -1,7 +1,7 @@
 @extends('layouts.dashboard', ["messagesAmount"=> $NewMessagesAmount])
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
+    
 @endsection
 
 

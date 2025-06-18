@@ -14,7 +14,7 @@ Route::middleware(['checkAPIKey', 'json'])->group(function(){
 
 
 // {
-//     "api_key":"your API Key"
+//     "api_key":"your API Key",
 //     "event_type": "new message",
 //     "received_at": "2025-06-08",
 //     "payload": {

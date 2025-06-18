@@ -26,21 +26,37 @@ class DashboardController extends Controller
             $eventsContent[$i]['time_difference'] =Carbon::create($events[$i]["created_at"])->diffForHumans(Carbon::now());
             $eventsContent[$i]['id'] =$events[$i]["id"];
             $eventsContent[$i]['event_name'] = $events[$i]['event_name'];
-            // reading data from file: 
-            $disk = $events[$i]['disk'];
-            $fileName = $events[$i]['file_name'];
-            $filePath = $disk . "/". $fileName;
-            $fileContent = json_decode(Storage::disk('s3')->get($filePath));
+            // reading data from file:             
+            $fileContent = $this->readJsonFromFile($events[$i]['disk'], $events[$i]['file_name']);
             $eventsContent[$i]['messageContent'] = $fileContent;
 
         }
         return view("dashboard.index", ["NewMessagesAmount"=> $NewMessagesAmount, "events"=> $eventsContent]);
     }
 
-    public function read(): view{
+    public function read($id): view{
+        //dd($id);
+
+        $event = Event::updateOrCreate(['id'=> $id],['read_at'=> Carbon::now()->timestamp]);
 
         $NewMessagesAmount = Event::getNewMessagesAmount(1)->count();
-        return view("dashboard.event", ["NewMessagesAmount"=> $NewMessagesAmount]);
+        $event= Event::joinTables()->where('events.id', $id)->first();
+        $eventPayload = $this->readJsonFromFile($event['disk'], $event["file_name"]);
+        //dd($event, $eventPayload);
+
+
+        return view("dashboard.event", ["NewMessagesAmount"=> $NewMessagesAmount, "eventPayload"=> $eventPayload, "event"=>$event]);
     }
 
+
+
+
+
+    public function readJsonFromFile($disk, $filename){
+        $filePath = $disk . "/". $filename;
+        $fileContent = json_decode(Storage::disk('s3')->get($filePath));
+        return $fileContent;
+
+
+    }
 }
