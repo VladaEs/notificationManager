@@ -17,15 +17,15 @@
         <div class="messageFeedWrapper relative w-[100%] h-[100%] rounded-xl  p-2 flex flex-col gap-2 overflow-y-scroll overflow-x-hidden">
             
             @foreach ($events as $event)
-
-                <x-dashboard.card :postId="$event['id']">
+            
+                <x-dashboard.card :postId="$event['id']" @class(['newEvent' => $event["read_at"] == null])>
                 <x-dashboard.cardimage></x-dashboardcardimage>
                 <x-dashboard.cardtextbox>
                     <x-dashboard.cardtextcontent>
                         <p class="h1">{{ $event['event_name'] }}</p>
                         <span class="span">{{ $event["time_difference"] }}</span>
                     </x-dashboard.cardtextcontent>
-                    <p class="p">Xhattmahs is not attacking your base!</p>
+                    <p class="p"></p>
                 </x-dashboard.cardtextbox>
             </x-dashboard.card>
 

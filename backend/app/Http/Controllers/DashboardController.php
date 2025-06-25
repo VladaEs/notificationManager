@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function index() : View{
 
 
-
+        
         $NewMessagesAmount = Event::getNewMessagesAmount(1)->count();
         $comp_id = 1;
         $events= Event::where("company_events.company_id", $comp_id)->join('company_events', 'events.event_type_id', '=', 'company_events.id')
@@ -46,6 +46,14 @@ class DashboardController extends Controller
 
 
         return view("dashboard.event", ["NewMessagesAmount"=> $NewMessagesAmount, "eventPayload"=> $eventPayload, "event"=>$event]);
+    }
+
+
+    public function showUsers(){
+
+
+
+        return view('users.index');
     }
 
 

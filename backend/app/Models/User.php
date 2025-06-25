@@ -35,6 +35,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+    public function scopeGetUserCompany($query){
+        return $query->join('company_users', 'company_users.user_id', '=', 'users.id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

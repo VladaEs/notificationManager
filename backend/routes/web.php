@@ -31,10 +31,9 @@ Route::middleware(['isAdmin'])->group(function(){
         return response("test");
 
     });
-
-Route::get('/users', [DashboardController::class, 'index'])->name('users');
-
+Route::get('/users', [DashboardController::class, 'showUsers'])->name('users');
 });
+
 Route::get('/products', [DashboardController::class, 'index'])->name('products');
 
 
