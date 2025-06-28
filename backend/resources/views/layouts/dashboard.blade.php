@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
 
-    
+    @livewireStyles
     @yield('styles')
     
 
@@ -23,6 +23,7 @@
     </div>
 
     @yield("scripts")
+    @livewireScripts
 </body>
 
 </html>

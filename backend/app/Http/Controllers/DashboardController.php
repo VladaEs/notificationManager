@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -51,9 +53,10 @@ class DashboardController extends Controller
 
     public function showUsers(){
 
-
-
-        return view('users.index');
+        $users = User::GetAllUsersCompanies()->get();
+        $allCompanies = Company::all();
+        //dd($users);
+        return view('users.index', ['users'=> $users, "companies"=> $allCompanies]);
     }
 
 
