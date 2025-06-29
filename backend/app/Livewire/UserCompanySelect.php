@@ -2,25 +2,32 @@
 
 namespace App\Livewire;
 
+use App\Models\CompanyUser;
 use Livewire\Component;
-use App\Models\CompanyUsers;
 class UserCompanySelect extends Component
 {
-    public int|null $user= null;
+    public $user= null;
 
     public int|null $companyId = null;
     public $dataArr = null;
     public string|null $textValueName = null;
 
-    public function mount($userId, $dataArr=[], $textValueName = 'name'){
-        $this->user = $userId;
+    public function mount($userVal, $dataArr=[], $textValueName = 'name'){
+        $this->user = $userVal;
         $this->dataArr = $dataArr; 
         $this->textValueName = $textValueName;
+        $this->companyId = $this->user['company_id'];
+
+        //dd($this->user['company_id'], $dataArr[0]['id']);
     }
 
-public function updatedCompanyId($value)
-{
-    dd($value); // будет срабатывать при изменении select
+public function updatedCompanyId($value){
+    $userId = $this->user['id'];
+    $userData = CompanyUser::updateOrCreate(
+        ['user_id'=> $userId],
+        ['company_id'=>$value]
+    );
+// будет срабатывать при изменении select
 }
  
     // ...

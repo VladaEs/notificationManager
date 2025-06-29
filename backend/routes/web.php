@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EventController;
-
+use App\Http\Controllers\MailController;
 
 Route::get('/', function () {
     return view('index');
@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('/api/displayEvent', [Eventcontroller::class, 'showEvent'])->name('showEvent');
 });
 
-
+Route::get('/sendnewemailsnotification', [MailController::class, 'sendNewMessagesNotificationEmail'] )->name('newEmails');
 
 
 Route::middleware(['isAdmin'])->group(function(){

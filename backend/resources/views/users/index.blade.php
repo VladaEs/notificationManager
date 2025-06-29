@@ -50,8 +50,8 @@
                         </td>
 
                         <td class="px-6 py-4">
-
-                            <livewire:user-company-select :userId="$user['id']" :dataArr="$companies" textValueName="name"/>
+                            
+                            <livewire:user-company-select :userVal="$user" :dataArr="$companies" textValueName="name"/>
 
                             
 
@@ -73,6 +73,11 @@
                 </tbody>
 
             </table>
+            
+                <x-button data-tooltip-target="tooltip-light" data-tooltip-style="light" type="button" class="m-2" color='cyan'>Send notifications</x-button>
+                
+
+            
         </div>
     </div>
 @endsection
