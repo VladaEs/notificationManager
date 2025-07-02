@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('/api/displayEvent', [Eventcontroller::class, 'showEvent'])->name('showEvent');
 });
 
-Route::get('/sendnewemailsnotification', [MailController::class, 'sendNewMessagesNotificationEmail'] )->name('newEmails');
+Route::post('/sendnewemailsnotification', [MailController::class, 'sendNewMessagesNotificationEmail'] )->name('newEmails');
 
 
 Route::middleware(['isAdmin'])->group(function(){

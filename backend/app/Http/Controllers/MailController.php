@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-    public function sendNewMessagesNotificationEmail(){
+    public function sendNewMessagesNotificationEmail(Request $request){
+        dd($request);
+
+
         Mail::to('tookens2005@gmail.com')->send(new NotificationNewMessages());
         return 0;
     }

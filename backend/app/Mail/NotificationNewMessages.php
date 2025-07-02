@@ -38,7 +38,7 @@ class NotificationNewMessages extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.NotificationNewMessages',
+            markdown: 'mails.NotificationNewMessages',
         );
     }
 
