@@ -27,7 +27,7 @@ class EventController extends Controller
     $company = Company::where('api_key',$validator['api_key'] )->first();
     $events = CompanyEvent::where('company_id', $company["id"])->where('event_name', $validator['event_type'])->first();
     
-    if($events->count() == 0){ // if event does not exist
+    if($events == null){ // if event does not exist
         $events = CompanyEvent::create([
             'company_id'=> $company['id'],
             "event_name"=> $validator["event_type"],

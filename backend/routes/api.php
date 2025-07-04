@@ -5,7 +5,7 @@ use App\Http\Controllers\EventController;
 
 
 Route::middleware(['checkAPIKey', 'json'])->group(function(){
-    Route::post('/newevent', [Eventcontroller::class, 'storeEvent'])->name('storeEvent');
+    Route::post('/newevent', [EventController::class, 'storeEvent'])->name('storeEvent');
 });
 
 

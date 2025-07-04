@@ -13,12 +13,15 @@ class NotificationNewMessages extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public int $messagesCount = 0;
+
     /**
+     * 
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($messagesCount = 0)
     {
-        //
+        $this->messagesCount = $messagesCount;
     }
 
     /**

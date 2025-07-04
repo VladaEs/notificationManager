@@ -12,6 +12,9 @@ class CompanyUser extends Model
     protected $fillable = [
         'company_id', 'user_id',
     ];
+    public function scopeGetUserInfo($request) {
+        return $request->join('users', 'users.id', '=', 'company_users.user_id');
+    }
 
 
 
