@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $NewMessagesAmount = Event::getNewMessagesAmount(1)->count();
         $comp_id = 1;
         $events= Event::where("company_events.company_id", $comp_id)->join('company_events', 'events.event_type_id', '=', 'company_events.id')
-        ->select(['events.*', 'company_events.event_name'])->get();
+        ->select(['events.*', 'company_events.event_name'])->orderBy('events.created_at', 'desc')->get();
         $eventsContent = [];
         for($i = 0; $i< $events->count(); $i++ ){
             $eventsContent[$i]['event_type_id'] =$events[$i]["event_type_id"];

@@ -57,21 +57,24 @@
             const container = document.querySelector('.messageFeedWrapper');
 
                 // Создаём новый элемент-карту (можно и через шаблонную строку)
-                const newCard = document.createElement('div');
+                const newCard = document.createElement('a');
+                newCard.setAttribute("href", `dashboard/post/${e.id}`);
                 newCard.classList.add('card', 'newEvent'); // Добавь нужные классы
 
                 newCard.innerHTML = `
-                    <div class="dashboard-card">
-                        <div class="cardimage"></div>
-                        <div class="cardtextbox">
-                            <div class="cardtextcontent">
-                                <p class="h1">${e.event_name}</p>
-                                <span class="span">${e.created_at}</span>
-                            </div>
-                            <p class="p"></p>
+            
+                <div class="card newEvent">
+                    <div class="img"></div>
+                    <div class="textBox">
+                        <div class="textContent flex">
+                            <p class="h1">${e.event_name}</p>
+                            <span class="span">${e.created_at}</span>
                         </div>
+                        <p class="p"></p>
                     </div>
-                `;
+                </div>
+            
+        `;
 
                 // Вставляем в начало списка
                 container.prepend(newCard);
