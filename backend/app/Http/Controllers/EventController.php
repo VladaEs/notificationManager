@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StoreNewEvent;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -41,7 +42,7 @@ class EventController extends Controller
     $disk= 'events';
     $filePath = $disk."/" . $fileName;
     $file = Storage::disk('s3')->put($filePath, json_encode($validator['payload'])); // save file as private not public
-    
+    $newEvent='';
     if($file){ //save data to DB if file was uploaded
 
         
@@ -52,6 +53,9 @@ class EventController extends Controller
             "disk"=> $disk,
 
         ]);
+        
+        broadcast(new StoreNewEvent($newEvent['id']))->toOthers();
+        
     }
     else{
         return response()->json([
@@ -77,6 +81,9 @@ class EventController extends Controller
         
         dd($req);
     }
+
+
+
 }
 
 

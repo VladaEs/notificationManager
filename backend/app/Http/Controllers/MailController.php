@@ -57,10 +57,10 @@ class MailController extends Controller
 
             $NewMessagesAmount = Event::getNewMessagesAmount(1)->count();
         
-        dd($companyUsers);
+        
 
 
-        Mail::to('tookens2005@gmail.com')->send(new NotificationNewMessages());
+        //Mail::to('tookens2005@gmail.com')->send(new NotificationNewMessages());
         return redirect()->back();
     }
 }

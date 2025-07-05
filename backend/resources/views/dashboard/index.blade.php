@@ -43,3 +43,42 @@
     </div>
 
 @endsection
+
+
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Pusher.logToConsole = true;
+        window.Echo.channel('store_event')
+        .listen('.store_event', (e) => {
+            console.log('Новое сообщение:', e);
+
+            const container = document.querySelector('.messageFeedWrapper');
+
+                // Создаём новый элемент-карту (можно и через шаблонную строку)
+                const newCard = document.createElement('div');
+                newCard.classList.add('card', 'newEvent'); // Добавь нужные классы
+
+                newCard.innerHTML = `
+                    <div class="dashboard-card">
+                        <div class="cardimage"></div>
+                        <div class="cardtextbox">
+                            <div class="cardtextcontent">
+                                <p class="h1">${e.event_name}</p>
+                                <span class="span">${e.created_at}</span>
+                            </div>
+                            <p class="p"></p>
+                        </div>
+                    </div>
+                `;
+
+                // Вставляем в начало списка
+                container.prepend(newCard);
+            });
+
+
+        
+    })
+</script>
+@endsection

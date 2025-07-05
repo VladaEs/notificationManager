@@ -21,6 +21,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/createCompany', [CompanyController::class, 'StoreNewCompany'])->name("CreateNewCompany");
     //Route::post('/api/newevent', [Eventcontroller::class, 'storeEvent'])->name('storeEvent');
     //Route::get('/api/displayEvent', [Eventcontroller::class, 'showEvent'])->name('showEvent');
+
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/post/{id}', [DashboardController::class, 'read'])->name('eventPost');
 });
 
 
@@ -32,17 +36,16 @@ Route::middleware(['isAdmin'])->group(function(){
         return response("test");
 
     });
-Route::get('/users', [DashboardController::class, 'showUsers'])->name('users');
+    Route::get('/users', [DashboardController::class, 'showUsers'])->name('users');
 });
 
 Route::get('/products', [DashboardController::class, 'index'])->name('products');
 
 
 
-Route::middleware(['auth', 'verified'])->group(function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/post/{id}', [DashboardController::class, 'read'])->name('eventPost');
-});
+// Route::middleware(['auth', 'verified'])->group(function(){
+    
+// });
 
     
 

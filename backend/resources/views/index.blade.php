@@ -14,6 +14,7 @@
         <div class="blobs ">
             <div class="blob"></div>
             <div class="blob"></div>
+            
         </div>
 
         <div  class="textMiddlePage w-[100%] h-[100%] flex flex-col justify-center items-center gap-5"> 

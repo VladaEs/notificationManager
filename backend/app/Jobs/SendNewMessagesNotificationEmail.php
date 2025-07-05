@@ -28,7 +28,7 @@ class SendNewMessagesNotificationEmail implements ShouldQueue
      */
     public function handle(): void{
         Log::info('Sending mail to: ' . $this->email);
-    Log::info('Messages count: ' . $this->messagesCount);
+        Log::info('Messages count: ' . $this->messagesCount);
         Mail::to($this->email)->send(new NotificationNewMessages($this->messagesCount));
     }
 }
