@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ["messagesAmount"=> $NewMessagesAmount])
+@extends('layouts.dashboard', ["messagesAmount"=> $messagesAmount])
 
 @section('styles')
     
@@ -17,7 +17,6 @@
         <div class="messageFeedWrapper relative w-[100%] h-[100%] rounded-xl  p-2 flex flex-col gap-2 overflow-y-scroll overflow-x-hidden">
             
             @foreach ($events as $event)
-            
                 <x-dashboard.card :postId="$event['id']" @class(['newEvent' => $event["read_at"] == null])>
                 <x-dashboard.cardimage></x-dashboardcardimage>
                 <x-dashboard.cardtextbox>
@@ -53,16 +52,17 @@
         window.Echo.channel('store_event')
         .listen('.store_event', (e) => {
             console.log('Новое сообщение:', e);
-
+            let messagesAmountContainer = document.getElementById('messagesAmountBlock');
+            let amount= Number(messagesAmountContainer.textContent);
+            messagesAmountContainer.textContent = amount+ 1; 
             const container = document.querySelector('.messageFeedWrapper');
 
-                // Создаём новый элемент-карту (можно и через шаблонную строку)
+                
                 const newCard = document.createElement('a');
                 newCard.setAttribute("href", `dashboard/post/${e.id}`);
-                newCard.classList.add('card', 'newEvent'); // Добавь нужные классы
+                newCard.classList.add('card', 'newEvent'); 
 
                 newCard.innerHTML = `
-            
                 <div class="card newEvent">
                     <div class="img"></div>
                     <div class="textBox">
@@ -76,12 +76,9 @@
             
         `;
 
-                // Вставляем в начало списка
+                
                 container.prepend(newCard);
             });
-
-
-        
     })
 </script>
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard', ['messagesAmount' => $NewMessagesAmount])
+@extends('layouts.dashboard', ['messagesAmount' => $messagesAmount])
 
 
 

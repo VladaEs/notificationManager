@@ -2,24 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use App\Models\Event;
 use App\Models\User;
+use App\Models\Event;
+use App\Models\Company;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
+
 class DashboardController extends Controller
 {
     public function index() : View{
-
-
         
-        $NewMessagesAmount = Event::getNewMessagesAmount(1)->count();
-        $comp_id = 1;
-        $events= Event::where("company_events.company_id", $comp_id)->join('company_events', 'events.event_type_id', '=', 'company_events.id')
-        ->select(['events.*', 'company_events.event_name'])->orderBy('events.created_at', 'desc')->get();
-        $eventsContent = [];
+        
+        
+        
+        
+
+        $company_id= 0;
+        if(Auth::user()->hasRole('admin')){
+            $company_id = 0;
+        }
+        else{
+            $company_id = User::GetUserCompany(Auth::user()->id)->first();
+            $company_id = $company_id['company_id']; //getting company id from the eloquent result
+        }
+
+        $events= Event::select(['events.*', 'company_events.event_name'])->join('company_events', 'events.event_type_id', '=', 'company_events.id')
+        ->orderBy('events.created_at', 'desc')
+        ->when($company_id != 0, function($query) use($company_id){
+            return $query->where("company_events.company_id", $company_id);
+        })->get();
+        
         for($i = 0; $i< $events->count(); $i++ ){
             $eventsContent[$i]['event_type_id'] =$events[$i]["event_type_id"];
 
@@ -33,7 +48,7 @@ class DashboardController extends Controller
             $eventsContent[$i]['messageContent'] = $fileContent;
 
         }
-        return view("dashboard.index", ["NewMessagesAmount"=> $NewMessagesAmount, "events"=> $eventsContent]);
+        return view("dashboard.index", [ "events"=> $eventsContent]);
     }
 
     public function read($id): view{

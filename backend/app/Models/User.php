@@ -36,8 +36,8 @@ class User extends Authenticatable
     ];
 
 
-    public function scopeGetUserCompany($query){
-        return $query->join('company_users', 'company_users.user_id', '=', 'users.id');
+    public function scopeGetUserCompany($query, $userId = 1){
+        return $query->join('company_users', 'company_users.user_id', '=', 'users.id')->where('users.id', $userId);
     }
     public function scopeGetAllUsersCompanies($query){
         return $query->select('users.id', 'users.name', 'users.email', 'users.created_at', 'company_users.company_id')->LeftJoin('company_users', 'company_users.user_id', '=', 'users.id');
